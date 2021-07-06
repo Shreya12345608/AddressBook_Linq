@@ -19,7 +19,8 @@ namespace AddressBook_Linq
                 Console.WriteLine("Enter your choice: \n1.Insert a new contact \n" +
                 "2.Display existing contact" +
                 " \n3.Edit existing contact " +
-                " \n4.Exit.");
+                " \n4.Delete existing contact " +
+                " \n5.Exit.");
                 int Selectchoice = Convert.ToInt32(Console.ReadLine());
                 switch (Selectchoice)
                 {
@@ -31,6 +32,9 @@ namespace AddressBook_Linq
                         break;
                     case 3:
                         addressBook.EditExistingContact();
+                        break;
+                    case 4:
+                        addressBook.DeleteContact("Shreya");
                         break;
                     default:
                         Console.WriteLine("Please enter the valid number : ");

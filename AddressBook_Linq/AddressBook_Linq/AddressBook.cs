@@ -92,5 +92,38 @@ namespace AddressBook_Linq
                 Console.WriteLine(e.Message);
             }
         }
+        /// <summary>
+        /// Delete row
+        /// </summary>
+        /// <param name="name"></param>
+        public void DeleteContact(string firstName)
+        {
+            try
+            {
+                ////Select row to delete using Lambda function
+                /////Table.asenumarable means takes all the data from table as list
+                ///a is like variable declaration or else we can say as x stores all the columns field is nthg but a.column name
+              //Firstordefault means gets the first elements in the table when we search
+                var rowDelete = table.AsEnumerable().Where(a => a.Field<string>("FirstName").Equals(firstName)).FirstOrDefault();
+                if (rowDelete != null)
+                {
+                    // add a RowDelete event handler for the table.
+
+                    rowDelete.Delete();
+                    Console.WriteLine("\nContact with name '{0}' deleted successfully!", firstName);
+                    DisplayDetails();
+                }
+                else
+                {
+                    Console.WriteLine("There is no such data");
+                }
+            }
+            ////Catch Exception If any
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
     }
 }
