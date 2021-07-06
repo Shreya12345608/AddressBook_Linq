@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AddressBook_Linq
@@ -10,7 +11,7 @@ namespace AddressBook_Linq
     class AddressBook
     {
         DataTable table = new DataTable("AddressBook");
-        public  AddressBook()
+        public AddressBook()
         {
             // Here store Type as a field
             //column Represents all table columns
@@ -28,28 +29,68 @@ namespace AddressBook_Linq
         /// </summary>
         public void InsertContactToTable()
         {
-            Console.Write("\nEnter the first name of the contact : ");
-            string firstName = Console.ReadLine();
-            Console.Write("\nEnter the last name of the contact : ");
-            string lastName = Console.ReadLine();
-            Console.Write("\nEnter the address of the contact : ");
-            string address = Console.ReadLine();
-            Console.Write("\nEnter the city of the contact : ");
-            string city = Console.ReadLine();
-            Console.Write("\nEnter the state of the contact : ");
-            string state = Console.ReadLine();
-            Console.Write("\nEnter the zip code of the contact : ");
-            int zip = Convert.ToInt32(Console.ReadLine());
-            Console.Write("\nEnter the phone number of the contact : ");
-            long phone = Convert.ToInt64(Console.ReadLine());
-            Console.Write("\nEnter the email id of the contact : ");
-            string email = Console.ReadLine();
-            
-            table.Rows.Add(firstName, lastName, address, city, state, zip, phone, email);
+            ////Declaring Rows:
+            table.Rows.Add("Shreya", "Malviya", "Howrah", "Nagpur", "MH", 75866, "8596748585", "shreya@gmail.com");
+            table.Rows.Add("prajakta", "Nayak", "Durgapur", "A zone", "West Bengal", 14526, "8596748585", "prajakta@gmail.com");
+            table.Rows.Add("Tanmay", "Agarwal", "Kolkata", "NewTown", "West Bengal", 78596, "8596748585", "tanmay@gmail.com");
+            table.Rows.Add("ekta", "Nath", "Patna", "Patna City", "Bihar", 125896, "8596748585", "ekta@gmail.com");
+            Console.WriteLine("Contact details added successfully!\n Select 2 for view contact\n");
 
-            Console.WriteLine("Contact details added successfully!");
+
+
+        }
+        //Display Details
+        public void DisplayDetails()
+        {
+            // IEnumerable in C# is an interface that defines one method, 
+            //AsEnumerable, which is an extension method for DataTable,
+            //AsEnumerable method will return multiple, independent
+            //queryable objects that are all bound to the source DataTable.
+            foreach (var table in table.AsEnumerable())
+            {
+                // Get all field by column index.
+                Console.WriteLine("\nFirstName:-" + table.Field<string>("FirstName"));
+                Console.WriteLine("LastName:-" + table.Field<string>("LastName"));
+                Console.WriteLine("Address:-" + table.Field<string>("Address"));
+                Console.WriteLine("City:-" + table.Field<string>("City"));
+                Console.WriteLine("State:-" + table.Field<string>("State"));
+                Console.WriteLine("ZipCode:-" + table.Field<string>("Zip"));
+                Console.WriteLine("PhoneNumber:-" + table.Field<string>("PhoneNumber"));
+                Console.WriteLine("Email:-" + table.Field<string>("Email"));
+            }
+        }
+        /// <summary>
+        /// Edit Existing Contact
+        /// </summary>
+        public void EditExistingContact()
+        {
+            try
+            {
+                ////Contact that has to be edited
+                string editName = "prajakta";
+                ////Select using Lambda Function
+                /////Table.asenumarable means takes all the data from table as list
+                ///X is like variable declaration or else we can say as x stores all the columns field is nthg but x.column name
+              //Firstordefault means gets the first elements in the table when we search
+                var updateData = table.AsEnumerable().Where(x => x.Field<string>("FirstName").Equals(editName)).FirstOrDefault();
+                if (updateData != null)
+                {
+                    ////Update Phone Number and City
+                    updateData.SetField("PhoneNumber", "895478520");
+                    updateData.SetField("City", "Pune");
+                    Console.WriteLine("\n PhoneNumber and ity of {0} updated successfully!", editName);
+                    DisplayDetails();
+                }
+                else
+                {
+                    Console.WriteLine("There is no such record in the Address Book!");
+                }
+            }
+            //exception
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
-
 }
-

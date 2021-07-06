@@ -13,10 +13,33 @@ namespace AddressBook_Linq
         {
             Console.WriteLine("Welcome to Address book linq problem!");
             AddressBook addressBook = new AddressBook();
-            addressBook.InsertContactToTable();
+            int loop = 1;
+            while (loop == 1)
+            {
+                Console.WriteLine("Enter your choice: \n1.Insert a new contact \n" +
+                "2.Display existing contact" +
+                " \n3.Edit existing contact " +
+                " \n4.Exit.");
+                int Selectchoice = Convert.ToInt32(Console.ReadLine());
+                switch (Selectchoice)
+                {
+                    case 1:
+                        addressBook.InsertContactToTable();
+                        break;
+                    case 2:
+                        addressBook.DisplayDetails();
+                        break;
+                    case 3:
+                        addressBook.EditExistingContact();
+                        break;
+                    default:
+                        Console.WriteLine("Please enter the valid number : ");
+                        break;
 
-            Console.ReadKey();
+                        Console.ReadKey();
 
+                }
+            }
         }
     }
 }
