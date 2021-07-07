@@ -124,6 +124,47 @@ namespace AddressBook_Linq
                 Console.WriteLine(e.Message);
             }
         }
+        public void retrievePersonByUsingCity(Contact contact)
+        {
+            //// using Lambda function
+            /////Table.asenumarable means takes all the data from table as list
+            ///a is like variable declaration or else we can say as x stores all the columns field is nthg but a.column name
+            //Firstordefault means gets the first elements in the table when we search
+            var selectdData = table.AsEnumerable().Where(a => a.Field<string>("City").Equals(contact.City)).FirstOrDefault();
+            /////Table.asenumarable means takes all the data from table as list
+            foreach (var table in table.AsEnumerable())
+            {
+                Console.WriteLine("\nFirstName:-" + table.Field<string>("FirstName"));
+                Console.WriteLine("LastName:-" + table.Field<string>("LastName"));
+                Console.WriteLine("Address:-" + table.Field<string>("Address"));
+                Console.WriteLine("City:-" + table.Field<string>("City"));
+                Console.WriteLine("State:-" + table.Field<string>("State"));
+                Console.WriteLine("ZipCode:-" + table.Field<int>("ZipCode"));
+                Console.WriteLine("PhoneNumber:-" + table.Field<long>("PhoneNumber"));
+                Console.WriteLine("Email:-" + table.Field<string>("Email"));
+            }
 
+        }
+         public void retrievePersonByUsingState(Contact contact)
+        {
+            //// using Lambda function
+            /////Table.asenumarable means takes all the data from table as list
+            ///a is like variable declaration or else we can say as x stores all the columns field is nthg but a.column name
+            //Firstordefault means gets the first elements in the table when we search
+            var selectdData = table.AsEnumerable().Where(a => a.Field<string>("State").Equals(contact.State)).FirstOrDefault();
+            /////Table.asenumarable means takes all the data from table as list
+            foreach (var table in table.AsEnumerable())
+            {
+                Console.WriteLine("\nFirstName:-" + table.Field<string>("FirstName"));
+                Console.WriteLine("LastName:-" + table.Field<string>("LastName"));
+                Console.WriteLine("Address:-" + table.Field<string>("Address"));
+                Console.WriteLine("City:-" + table.Field<string>("City"));
+                Console.WriteLine("State:-" + table.Field<string>("State"));
+                Console.WriteLine("ZipCode:-" + table.Field<int>("ZipCode"));
+                Console.WriteLine("PhoneNumber:-" + table.Field<long>("PhoneNumber"));
+                Console.WriteLine("Email:-" + table.Field<string>("Email"));
+            }
+
+        }
     }
 }
