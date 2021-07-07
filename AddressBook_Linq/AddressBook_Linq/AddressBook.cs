@@ -31,6 +31,10 @@ namespace AddressBook_Linq
         {
             ////Declaring Rows:
             table.Rows.Add("Shreya", "Malviya", "Howrah", "Nagpur", "MH", 75866, "8596748585", "shreya@gmail.com");
+            table.Rows.Add("A", "sMalviya", "Howrah", "Nagpur", "MH", 75866, "8596748585", "shreya@gmail.com");
+            table.Rows.Add("B", "dMalviya", "Howrah", "Nagpur", "MH", 75866, "8596748585", "shreya@gmail.com");
+            table.Rows.Add("C", "vMalviya", "Howrah", "Nagpur", "MH", 75866, "8596748585", "shreya@gmail.com");
+            table.Rows.Add("D", "fMalviya", "Howrah", "Nagpur", "MH", 75866, "8596748585", "shreya@gmail.com");
             table.Rows.Add("prajakta", "Nayak", "Durgapur", "A zone", "West Bengal", 14526, "8596748585", "prajakta@gmail.com");
             table.Rows.Add("Tanmay", "Agarwal", "Kolkata", "NewTown", "West Bengal", 78596, "8596748585", "tanmay@gmail.com");
             table.Rows.Add("ekta", "Nath", "Patna", "Patna City", "Bihar", 125896, "8596748585", "ekta@gmail.com");
@@ -139,13 +143,13 @@ namespace AddressBook_Linq
                 Console.WriteLine("Address:-" + table.Field<string>("Address"));
                 Console.WriteLine("City:-" + table.Field<string>("City"));
                 Console.WriteLine("State:-" + table.Field<string>("State"));
-                Console.WriteLine("ZipCode:-" + table.Field<int>("ZipCode"));
-                Console.WriteLine("PhoneNumber:-" + table.Field<long>("PhoneNumber"));
+                Console.WriteLine("ZipCode:-" + table.Field<string>("Zip"));
+                Console.WriteLine("PhoneNumber:-" + table.Field<string>("PhoneNumber"));
                 Console.WriteLine("Email:-" + table.Field<string>("Email"));
             }
 
         }
-         public void retrievePersonByUsingState(Contact contact)
+        public void retrievePersonByUsingState(Contact contact)
         {
             //// using Lambda function
             /////Table.asenumarable means takes all the data from table as list
@@ -160,11 +164,31 @@ namespace AddressBook_Linq
                 Console.WriteLine("Address:-" + table.Field<string>("Address"));
                 Console.WriteLine("City:-" + table.Field<string>("City"));
                 Console.WriteLine("State:-" + table.Field<string>("State"));
-                Console.WriteLine("ZipCode:-" + table.Field<int>("ZipCode"));
-                Console.WriteLine("PhoneNumber:-" + table.Field<long>("PhoneNumber"));
+                Console.WriteLine("ZipCode:-" + table.Field<string>("Zip"));
+                Console.WriteLine("PhoneNumber:-" + table.Field<string>("PhoneNumber"));
                 Console.WriteLine("Email:-" + table.Field<string>("Email"));
             }
 
+        }
+        public void sortContactAlphabeticallyForGivenCity(Contact contact)
+        {
+            /// using Lambda function
+            /////Table.asenumarable means takes all the data from table as list
+            ///a is like variable declaration or else we can say as x stores all the columns field is nthg but a.column name
+            //OrderBy() method sorts the collection in ascending order based on specified field.
+            //ThenBy() method after OrderBy to sort the collection on another field in ascending order. 
+            var records = table.AsEnumerable().Where(x => x.Field<string>("City") == contact.City).OrderBy(x => x.Field<string>("FirstName")).ThenBy(x => x.Field<string>("LastName"));
+            foreach (var table in records)
+            {
+                Console.WriteLine("\nFirstName:-" + table.Field<string>("FirstName"));
+                Console.WriteLine("LastName:-" + table.Field<string>("LastName"));
+                Console.WriteLine("Address:-" + table.Field<string>("Address"));
+                Console.WriteLine("City:-" + table.Field<string>("City"));
+                Console.WriteLine("State:-" + table.Field<string>("State"));
+                Console.WriteLine("ZipCode:-" + table.Field<string>("Zip"));
+                Console.WriteLine("PhoneNumber:-" + table.Field<string>("PhoneNumber"));
+                Console.WriteLine("Email:-" + table.Field<string>("Email"));
+            }
         }
     }
 }

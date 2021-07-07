@@ -24,7 +24,8 @@ namespace AddressBook_Linq
                 " \n4.Delete existing contact " +
                  " \n5.Reterive Data From City" +
                    " \n6.Reterive Data From State" +
-                " \n6.Exit.");
+                    " \n7.Sort Contact Alphabetically For Given City" +
+                " \n8.Exit.");
                 int Selectchoice = Convert.ToInt32(Console.ReadLine());
                 switch (Selectchoice)
                 {
@@ -50,6 +51,11 @@ namespace AddressBook_Linq
                         contact.City = Console.ReadLine();
                         addressBook.retrievePersonByUsingState(contact);
                         break;
+                    case 7:
+                        Console.WriteLine("Enter the city for sorting = ");
+                        contact.City = Console.ReadLine();
+                        addressBook.sortContactAlphabeticallyForGivenCity(contact);
+                        break;
                     default:
                         Console.WriteLine("Please enter the valid number : ");
                         break;
@@ -58,6 +64,7 @@ namespace AddressBook_Linq
 
                 }
             }
+
         }
     }
 }
